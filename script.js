@@ -1,0 +1,179 @@
+class ParqueInteractivo {
+    constructor(maxPersonas, maxHorarios, maxAtracciones, limiteRelleno) {
+        this.maxPersonas = maxPersonas;   // Número máximo de personas por grupo
+        this.maxHorarios = maxHorarios;  // Número máximo de horarios
+        this.maxAtracciones = maxAtracciones; // Número de atracciones
+        this.limiteRelleno = limiteRelleno;  // Límite de relleno para los horarios
+        this.conteoTotalClicks = 0;      // Contador de clics
+        this.horarioActual = 1;          // Horario que se está llenando
+        this.datosSimulacion = [];      // Array para almacenar los datos de la simulación
+    }
+    
+    // Función para llenar una celda por clic (simulación en tiempo real)
+    llenarCelda() {
+        const tbody = document.querySelector("#tablaSimulacion tbody");
+    
+        // Verificar si la fila actual ya existe o necesita crearse
+        let fila = tbody.querySelector(`tr[data-horario="${this.horarioActual}"]`);
+        if (!fila) {
+            fila = tbody.insertRow();
+            fila.setAttribute("data-horario", this.horarioActual);
+    
+            // Insertar celda del horario
+            const celdaHorario = fila.insertCell();
+            celdaHorario.textContent = `Horario ${this.horarioActual}`;
+    
+            // Crear celdas vacías para las atracciones
+            for (let i = 1; i <= this.maxAtracciones; i++) {
+                fila.insertCell().textContent = ""; // Inicialmente vacías
+            }
+        }
+    
+        // Obtener las celdas de la fila
+        const celdas = fila.querySelectorAll("td");
+    
+        // Verificar si el horario actual supera los horarios normales
+        if (this.horarioActual > this.maxHorarios) {
+            // Añadir cero al inicio para simular el desplazamiento
+            this.datosSimulacion.unshift(0);
+            // Si el array supera el límite de atracciones, eliminar el más antiguo
+            if (this.datosSimulacion.length > this.maxAtracciones) {
+                this.datosSimulacion.pop();
+            }
+    
+            // Llenar las celdas vacías con ceros SOLO cuando el horario supera el límite
+            for (let i = 0; i < this.maxAtracciones; i++) {
+                celdas[i + 1].textContent = this.datosSimulacion[i] || "0"; // Insertar ceros
+            }
+    
+            // Verificar si todas las celdas ya están llenas de ceros
+            const todosCeros = Array.from(celdas).slice(1).every(cell => cell.textContent === "0");
+            
+            if (todosCeros) {
+                alert("La tabla se ha llenado completamente de ceros. No se pueden agregar más personas.");
+                document.getElementById("maxPersonas").disabled = true;  // Deshabilitar input de personas
+                return;  // No permitir seguir añadiendo
+            }
+    
+        } else {
+            // Validar y procesar el input del usuario
+            const personasPorHorario = parseInt(document.getElementById("maxPersonas").value);
+    
+            if (isNaN(personasPorHorario) || personasPorHorario <= 0) {
+                alert("Por favor, ingrese un número válido de personas.");
+                return;
+            }
+    
+            // Agregar personas al final y ajustar longitud del array
+            this.datosSimulacion.push(personasPorHorario);
+            if (this.datosSimulacion.length > this.maxAtracciones) {
+                this.datosSimulacion.shift(); // Eliminar el más antiguo si excede
+            }
+    
+            // Desplazar los valores en las celdas de la fila de acuerdo con la secuencia
+            let index = 1;  // Comenzamos desde la primera atracción
+    
+            // Mover los valores hacia las celdas de la fila (de izquierda a derecha)
+            for (let i = this.datosSimulacion.length - 1; i >= 0; i--) {
+                while (index <= this.maxAtracciones && celdas[index].textContent !== "") {
+                    index++;  // Mover a la siguiente celda si ya tiene contenido
+                }
+                if (index <= this.maxAtracciones) {
+                    celdas[index].textContent = this.datosSimulacion[i];
+                }
+            }
+        }
+    
+        // Incrementar el horario
+        this.horarioActual++;
+    
+        // Incrementar clics y mostrar mensaje si aplica
+        this.conteoTotalClicks++;
+        this.mostrarMensajeFinal();
+    
+        // Calcular ingresos basados en el último valor de personas
+        calcularIngresos(this.datosSimulacion[this.datosSimulacion.length - 1]);
+    }
+    
+    
+    
+    
+    // Función para generar dinámicamente las cabeceras de la tabla
+    generarCabecerasAtracciones() {
+        const thead = document.querySelector("#tablaSimulacion thead tr");
+        thead.innerHTML = "<th>Horario</th>"; // Limpiar y agregar la primera cabecera
+
+        for (let i = 1; i <= this.maxAtracciones; i++) {
+            const th = document.createElement("th");
+            th.textContent = `Atracción ${i}`;
+            thead.appendChild(th);
+        }
+    }
+
+    // Mostrar mensaje final con el número de clics realizados
+    mostrarMensajeFinal() {
+        const mensajeFinal = document.getElementById("mensajeFinal");
+        mensajeFinal.textContent = `Número total de clics: ${this.conteoTotalClicks}`;
+    }
+}
+
+// Crear la instancia una sola vez fuera del evento
+let parque = new ParqueInteractivo(6, 5, 3, 3); // Valores predeterminados
+
+// Variable global para ingresos acumulados
+let totalPersonasAcumuladas = 0; // Personas acumuladas en total
+
+// Función para calcular ingresos en tiempo real
+function calcularIngresos(personasPorHorario) {
+    totalPersonasAcumuladas += personasPorHorario; // Sumar las personas del horario actual
+    const ingresoAcumulado = totalPersonasAcumuladas * 20000; // 20,000 por persona
+
+    // Actualizar la tabla de ingresos dinámicamente
+    document.getElementById("totalPersonas").textContent = totalPersonasAcumuladas;
+    document.getElementById("ingresoTotal").textContent = ingresoAcumulado.toLocaleString(); // Formato numérico
+}
+
+// Función para limpiar la tabla y reiniciar valores
+function limpiarTabla() {
+    // Limpiar el cuerpo de la tabla
+    const tbody = document.querySelector("#tablaSimulacion tbody");
+    tbody.innerHTML = ""; // Vaciar las filas de la tabla
+
+    // Reiniciar las variables
+    parque.conteoTotalClicks = 0;
+    parque.horarioActual = 1;
+    parque.datosSimulacion = []; // Limpiar los datos de la simulación
+
+    // Reiniciar los ingresos acumulados
+    totalPersonasAcumuladas = 0;
+
+    // Limpiar los mensajes
+    document.getElementById("mensajeFinal").textContent = "";
+    document.getElementById("totalPersonas").textContent = "-";
+    document.getElementById("ingresoTotal").textContent = "-";
+}
+
+// Asignar evento al botón de simular
+document.getElementById("llenarBtn").addEventListener("click", function () {
+    // Actualizar los valores de la instancia
+    parque.maxPersonas = parseInt(document.getElementById("maxPersonas").value);
+    parque.maxHorarios = parseInt(document.getElementById("maxHorarios").value);
+    parque.maxAtracciones = parseInt(document.getElementById("maxAtracciones").value);
+    parque.limiteRelleno = parseInt(document.getElementById("limiteRelleno").value);
+
+    // Verificar que el input de maxPersonas es válido
+    const personasPorHorario = parseInt(document.getElementById("maxPersonas").value);
+    if (isNaN(personasPorHorario) || personasPorHorario <= 0) {
+        alert("Por favor, ingrese un número válido de personas.");
+        return;
+    }
+
+    // Llenar la tabla de simulación
+    parque.generarCabecerasAtracciones();
+    parque.llenarCelda();
+});
+
+// Asignar evento al botón de limpiar
+document.getElementById("limpiarBtn").addEventListener("click", function () {
+    limpiarTabla();  // Limpiar la tabla y reiniciar los valores
+});

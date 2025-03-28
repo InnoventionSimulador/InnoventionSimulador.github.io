@@ -1,0 +1,173 @@
+/* CSS para la imagen de fondo con overlay oscuro */
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Capa negra semitransparente */
+    z-index: -1; /* Asegura que el overlay esté detrás del contenido */
+}
+
+body {
+    background-image: url('laptop-1846277_1280.jpg'); /* Ruta de la imagen de fondo */
+    background-size: cover; /* Cubre toda la pantalla */
+    background-position: center center; /* Centra la imagen */
+    background-attachment: fixed; /* La imagen se queda fija al hacer scroll */
+}
+
+
+/* Estilo para el título */
+h1 {
+    text-align: center; /* Centra el título */
+    font-size: 2rem; /* Tamaño de fuente grande */
+    color: #000000; /* Color gris oscuro, puedes cambiarlo a negro (#000) 
+    font-family: 'Arial', sans-serif; /* Fuente minimalista */
+    margin-top: 50px; /* Espaciado superior para que no quede pegado al borde */
+    margin-bottom: 30px; /* Espaciado inferior */
+    position: relative; /* Posiciona el subrayado */
+    padding: 10px 20px; /* Añade espacio alrededor del título */
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco con opacidad */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Estilo para los botones */
+button {
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semi-transparente */
+    color: white; /* Texto blanco */
+    padding: 6px 12px; /* Reducir el tamaño del botón ajustado */
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px; /* Separación entre botones */
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    position: relative;
+    text-decoration: underline;
+    text-decoration-color: #ccc;
+}
+
+/* Subrayado en los botones */
+button::after {
+    content: ''; /* Crea el pseudo-elemento */
+    position: absolute; /* Posiciona el subrayado debajo del botón */
+    left: 0;
+    bottom: 0;
+    width: 100%; /* Hace que el subrayado cubra todo el ancho del botón */
+    height: 2px; /* Grosor del subrayado */
+    background-color: #ccc; /* Gris para el subrayado */
+    transform: scaleX(0); /* Inicialmente el subrayado está oculto */
+    transition: transform 0.3s ease; /* Transición suave para el subrayado */
+}
+
+/* Muestra el subrayado al pasar el mouse */
+button:hover::after {
+    transform: scaleX(1); /* Muestra el subrayado al pasar el mouse */
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+/* Estilo para los campos de entrada */
+.inputs {
+    display: flex;
+    justify-content: center; /* Centra los elementos en el contenedor */
+    gap: 20px; /* Espaciado entre los inputs */
+    margin-bottom: 20px;
+}
+
+/* Títulos de los campos de entrada con fondo */
+.inputs label {
+    font-size: 3rem; /* Tamaño de fuente más pequeño */
+    color: #000000; /* Títulos en color negro */
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco con opacidad similar al título */
+    padding: 3px 8px; /* Espaciado dentro del fondo reducido */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilo para los inputs */
+.inputs input {
+    padding: 8px; /* Reduce el espacio interno */
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    margin-top: 5px;
+    width: 150px; /* Reduce el ancho de los inputs */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo oscuro semi-transparente igual que las filas de la tabla */
+    color: white; /* Texto blanco */
+}
+
+/* Estilo para los títulos de MaxAtracciones, MaxHorarios, Cierre de grupo y Personas */
+.inputs label:nth-child(1),
+.inputs label:nth-child(2),
+.inputs label:nth-child(3),
+.inputs label:nth-child(4) {
+    font-size: 1rem;  /* Tamaño de fuente más pequeño */
+    padding: 3px 8px;   /* Ajuste de padding para que se vea proporcionado */
+}
+
+/* Estilo para la tabla */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+thead {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el encabezado */
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente para las filas pares */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente para las filas impares */
+}
+
+/* Mensaje final */
+#mensajeFinal {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: white;
+}
+
+#tablaGastos {
+    width: 40%; /* Reducir el tamaño de la tabla al 60% del ancho */
+    margin-top: 20px;
+    margin-left: -10px; /* Mover la tabla hacia la izquierda */
+    border-collapse: collapse;
+}
+
+#tablaGastos th, #tablaGastos td {
+    border: 1px solid #ddd;
+    padding: 6px 10px; /* Reduce el espacio dentro de las celdas */
+    text-align: left;
+    font-size: 14px; /* Reduce el tamaño de la fuente */  
+}
+
+#tablaIngresos {
+    width: 40%; /* Reduce el tamaño de la tabla al % del ancho */
+    margin-top: 100px;
+    margin-left: 420px; /* Mueve la tabla hacia la izquierda */
+    border-collapse: collapse;
+}

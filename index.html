@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Parque Interactivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador de Parque Interactivo</h1>
+
+        <div class="inputs">
+            <div>
+                <label for="maxPersonas">Personas:</label>
+                <input type="number" id="maxPersonas" value="6" min="1">
+            </div>
+            <div>
+                <label for="maxHorarios">Máximo de Horarios:</label>
+                <input type="number" id="maxHorarios" value="8" min="1">
+            </div>
+            <div>
+                <label for="maxAtracciones">Máximo de Atracciones:</label>
+                <input type="number" id="maxAtracciones" value="8" min="1">
+            </div>
+            <div>
+                <label for="limiteRelleno">Cierre de Grupos:</label>
+                <input type="number" id="limiteRelleno" value="25" min="1">
+            </div>
+        </div>
+        <div>
+            <button id="llenarBtn">Simular</button>
+            <button id="limpiarBtn">Limpiar</button>
+        </div>
+        
+        <!-- Tabla de simulación -->
+        <table id="tablaSimulacion">
+            <thead>
+                <tr>
+                    <th>Horario</th>
+                    <!-- Cabeceras de atracciones se generarán dinámicamente -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Las filas se llenarán dinámicamente -->
+            </tbody>
+        <!-- Tabla de ingresos -->
+        <table id="tablaIngresos">
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Personas</td>
+                    <td id="totalPersonas">-</td>
+                </tr>
+                <tr>
+                    <td>Valor por Persona</td>
+                    <td id="valorPersona">20,000</td> <!-- Valor fijo de la entrada -->
+                </tr>
+                <tr>
+                    <td>Ingreso Total</td>
+                    <td id="ingresoTotal">-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="mensajeFinal"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+</html>
