@@ -15,15 +15,6 @@ body::before {
     background: rgba(0, 0, 0, 0.5); /* Capa negra semitransparente */
     z-index: -1; /* Asegura que el overlay esté detrás del contenido */
 }
-.container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los elementos bajen de línea en pantallas pequeñas */
-    justify-content: center;
-}
-.item {
-    flex: 1 1 300px; /* Ajusta el tamaño mínimo de los elementos */
-    margin: 10px;
-
 
 body {
     background-image: url('laptop-1846277_1280.jpg'); /* Ruta de la imagen de fondo */
