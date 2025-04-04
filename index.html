@@ -27,6 +27,10 @@
                 <label for="limiteRelleno">Cierre de Grupos:</label>
                 <input type="number" id="limiteRelleno" value="25" min="1">
             </div>
+            <div>
+                <label for="costoBoleta">Costo de la Boleta:</label>
+                <input type="number" id="costoBoleta" value="20000" min="1">
+            </div>
         </div>
         <div>
             <button id="llenarBtn">Simular</button>
@@ -57,9 +61,8 @@
                     <td>Total Personas</td>
                     <td id="totalPersonas">-</td>
                 </tr>
-                <tr>
-                    <td>Valor por Persona</td>
-                    <td id="valorPersona">20,000</td> <!-- Valor fijo de la entrada -->
+                <td>Valor por Persona</td>
+                    <td id="valorPersona">20,000</td> <!-- Se actualizará dinámicamente -->
                 </tr>
                 <tr>
                     <td>Ingreso Total</td>
@@ -73,7 +76,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>
-
-
 </html>
