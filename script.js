@@ -5,10 +5,20 @@ class ParqueInteractivo {
         this.maxAtracciones = maxAtracciones; // Número de atracciones
         this.limiteRelleno = limiteRelleno;  // Límite de relleno para los horarios
         this.conteoTotalClicks = 0;      // Contador de clics
-        this.horarioActual = 1;          // Horario que se está llenando
+        this.horarioActual = 0;          // Cambiado a 0 para representar 8:00 AM
         this.datosSimulacion = [];      // Array para almacenar los datos de la simulación
     }
     
+    // Función para calcular el rango de horarios en bloques de 10 minutos
+    calcularHorario(horarioIndex) {
+        const horaInicio = 8 * 60; // 8:00 AM en minutos
+        const minutos = horaInicio + (horarioIndex * 10);
+        const hora = Math.floor(minutos / 60);
+        const min = minutos % 60;
+        const horaFin = min + 10 >= 60 ? `${hora + 1}:00` : `${hora}:${(min + 10).toString().padStart(2, '0')}`;
+        return `${hora}:${min.toString().padStart(2, '0')} - ${horaFin}`;
+    }
+
     // Función para llenar una celda por clic (simulación en tiempo real)
     llenarCelda() {
         const tbody = document.querySelector("#tablaSimulacion tbody");
@@ -19,9 +29,9 @@ class ParqueInteractivo {
             fila = tbody.insertRow();
             fila.setAttribute("data-horario", this.horarioActual);
     
-            // Insertar celda del horario
+            // Insertar celda del horario con formato HH:MM - HH:MM
             const celdaHorario = fila.insertCell();
-            celdaHorario.textContent = `Horario ${this.horarioActual}`;
+            celdaHorario.textContent = this.calcularHorario(this.horarioActual);
     
             // Crear celdas vacías para las atracciones
             for (let i = 1; i <= this.maxAtracciones; i++) {
@@ -96,8 +106,6 @@ class ParqueInteractivo {
     }
     
     
-    
-    
     // Función para generar dinámicamente las cabeceras de la tabla
     generarCabecerasAtracciones() {
         const thead = document.querySelector("#tablaSimulacion thead tr");
@@ -123,21 +131,38 @@ let parque = new ParqueInteractivo(6, 5, 3, 3); // Valores predeterminados
 // Variable global para ingresos acumulados
 let totalPersonasAcumuladas = 0; // Personas acumuladas en total
 
-// Función para calcular ingresos en tiempo real
+document.getElementById("costoBoleta").addEventListener("input", function () {
+    const nuevoCosto = parseInt(this.value) || 0; // Obtener el valor del input
+    document.getElementById("valorPersona").textContent = nuevoCosto.toLocaleString(); // Actualizar la celda de la tabla
+});
+
+// Variable global para almacenar ingresos por grupo
+let ingresosPorGrupo = []; 
+
 function calcularIngresos(personasPorHorario) {
-    totalPersonasAcumuladas += personasPorHorario; // Sumar las personas del horario actual
-    const ingresoAcumulado = totalPersonasAcumuladas * 20000; // 20,000 por persona
+    const costoBoleta = parseInt(document.getElementById("costoBoleta").value) || 0; // Obtener el costo de boleta actual
+
+    // Guardar cada grupo con su propio costo
+    ingresosPorGrupo.push({ personas: personasPorHorario, costo: costoBoleta });
+
+    // Calcular ingreso total sumando cada grupo con su propio costo
+    let ingresoTotal = ingresosPorGrupo.reduce((total, grupo) => {
+        return total + (grupo.personas * grupo.costo);
+    }, 0);
 
     // Actualizar la tabla de ingresos dinámicamente
+    totalPersonasAcumuladas += personasPorHorario; // Sumar al total de personas
     document.getElementById("totalPersonas").textContent = totalPersonasAcumuladas;
-    document.getElementById("ingresoTotal").textContent = ingresoAcumulado.toLocaleString(); // Formato numérico
+    document.getElementById("ingresoTotal").textContent = ingresoTotal.toLocaleString(); // Formato numérico
 }
+
 
 // Función para limpiar la tabla y reiniciar valores
 function limpiarTabla() {
     // Limpiar el cuerpo de la tabla
     const tbody = document.querySelector("#tablaSimulacion tbody");
     tbody.innerHTML = ""; // Vaciar las filas de la tabla
+    ingresosPorGrupo = []; // Reiniciar el array de ingresos por grupo
 
     // Reiniciar las variables
     parque.conteoTotalClicks = 0;
@@ -176,4 +201,7 @@ document.getElementById("llenarBtn").addEventListener("click", function () {
 // Asignar evento al botón de limpiar
 document.getElementById("limpiarBtn").addEventListener("click", function () {
     limpiarTabla();  // Limpiar la tabla y reiniciar los valores
+    const thead = document.querySelector("#tablaSimulacion thead tr");
+thead.innerHTML = "<th>Horario</th>";
+
 });
