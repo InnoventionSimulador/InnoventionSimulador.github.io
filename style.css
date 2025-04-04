@@ -40,19 +40,20 @@ h1 {
 
 /* Estilo para los botones */
 button {
-    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semi-transparente */
-    color: white; /* Texto blanco */
-    padding: 6px 12px; /* Reducir el tamaño del botón ajustado */
-    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    background-color: rgba(0, 0, 0, 0.4); 
+    color: white; 
+    padding: 8px 16px; /* Ajuste del tamaño */
+    font-size: 1rem; /* Tamaño de fuente más equilibrado */
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin: 10px; /* Separación entre botones */
+    margin: 10px; 
     transition: background-color 0.3s ease;
     display: inline-block;
-    position: relative;
     text-decoration: underline;
     text-decoration-color: #ccc;
+    width: auto; /* Asegura que todos los botones se ajusten al contenido */
+    min-width: 120px; /* Establece un ancho mínimo para la coherencia */
 }
 
 /* Subrayado en los botones */
