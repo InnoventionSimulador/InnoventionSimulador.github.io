@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Validación del correo y la contraseña
         if (email === validEmail && password === validPassword) {
             // Si el correo y la contraseña son correctos, redirige a index.html
-            window.location.href = "index.html"; // Redirige a index.html
+            window.location.href = "simulador.html"; // Redirige a index.html
         } else {
             // Si no son correctos, muestra un mensaje de error
             alert("Correo o contraseña incorrectos.");
