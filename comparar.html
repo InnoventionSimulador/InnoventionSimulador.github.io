@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comparación Ingresos y Costos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Comparación de Ingresos y Costos</h1>
+
+    <div class="inputs">
+      <div>
+        <label for="arriendo">Arriendo:</label>
+        <input type="number" id="arriendo" value="0" min="0" />
+      </div>
+      <div>
+        <label for="consumibles">Consumibles:</label>
+        <input type="number" id="consumibles" value="0" min="0" />
+      </div>
+      <div>
+        <label for="facturas">Facturas:</label>
+        <input type="number" id="facturas" value="0" min="0" />
+      </div>
+      <div>
+        <label for="mantenimiento">Mantenimiento:</label>
+        <input type="number" id="mantenimiento" value="0" min="0" />
+      </div>
+      <div>
+        <label for="personal">Personal:</label>
+        <input type="number" id="personal" value="0" min="0" />
+      </div>
+      <div>
+        <label for="refrigerios">Refrigerios:</label>
+        <input type="number" id="refrigerios" value="0" min="0" />
+      </div>
+      
+    </div>
+
+    <div>
+      <button id="calcularComparacion">Calcular Comparación</button>
+    </div>
+
+     <!-- Botón para volver -->
+     <div style="margin-top: 30px;">
+        <a href="simulador.html">
+          <button>Volver al Simulador</button>
+        </a>
+
+    <div id="resultadoComparacion" style="margin-top: 20px;"></div>
+  </div>
+
+  <script>
+    document.getElementById("calcularComparacion").addEventListener("click", () => {
+      const arriendo = parseInt(document.getElementById("arriendo").value) || 0;
+      const consumibles = parseInt(document.getElementById("consumibles").value) || 0;
+      const facturas = parseInt(document.getElementById("facturas").value) || 0;
+      const mantenimiento = parseInt(document.getElementById("mantenimiento").value) || 0;
+      const personal = parseInt(document.getElementById("personal").value) || 0;
+      const refrigerios = parseInt(document.getElementById("refrigerios").value) || 0;
+
+      const ingresoTotal = parseInt(sessionStorage.getItem("ingresoTotal")) || 0;
+      const totalGastos = arriendo + consumibles + facturas + mantenimiento + personal + refrigerios;
+      const ganancia = ingresoTotal - totalGastos;
+
+      const resultadoHTML = `
+        <table border="1" cellpadding="5" cellspacing="0">
+          <thead>
+            <tr><th>Concepto</th><th>Valor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Ingreso Total</td><td>${ingresoTotal.toLocaleString()}</td></tr>
+            <tr><td>Gastos Totales</td><td>${totalGastos.toLocaleString()}</td></tr>
+            <tr>
+              <td><strong>${ganancia >= 0 ? "Ganancia" : "Pérdida"}</strong></td>
+              <td><strong style="color: ${ganancia >= 0 ? "green" : "red"}">${ganancia.toLocaleString()}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+      
+      document.getElementById("resultadoComparacion").innerHTML = resultadoHTML;
+      
+    });
+    window.addEventListener("DOMContentLoaded", () => {
+  const ingresoTotal = parseInt(sessionStorage.getItem("ingresoTotal")) || 0;
+
+  const ingresoAuto = document.createElement("p");
+  ingresoAuto.innerHTML = `<strong>Ingreso Total Recibido:</strong> ${ingresoTotal.toLocaleString()}`;
+  document.querySelector(".container").insertBefore(ingresoAuto, document.getElementById("resultadoComparacion"));
+});
+
+  </script>
+   
+</body>
+</html>
