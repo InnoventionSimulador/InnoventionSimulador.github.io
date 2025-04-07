@@ -6,7 +6,7 @@ html, body {
 
 /* Fondo */
 #fondo {
-    background-image: url('image.png'); /* URL de la imagen */
+    background-image: url('login.jpg'); /* URL de la imagen */
     background-position: center;
     background-size: cover;
     background-attachment: no-repeat;
