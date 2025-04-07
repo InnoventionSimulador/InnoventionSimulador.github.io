@@ -7,6 +7,8 @@ class ParqueInteractivo {
         this.conteoTotalClicks = 0;      // Contador de clics
         this.horarioActual = 0;          // Cambiado a 0 para representar 8:00 AM
         this.datosSimulacion = [];      // Array para almacenar los datos de la simulación
+        this.simulacionFinalizada = false; // Para congelar ingresos al empezar los ceros
+
     }
     
     // Función para calcular el rango de horarios en bloques de 10 minutos
@@ -44,6 +46,9 @@ class ParqueInteractivo {
     
         // Verificar si el horario actual supera los horarios normales
         if (this.horarioActual > this.maxHorarios) {
+            // Marcar que empezó la simulación de ceros
+this.simulacionFinalizada = true;
+
             // Añadir cero al inicio para simular el desplazamiento
             this.datosSimulacion.unshift(0);
             // Si el array supera el límite de atracciones, eliminar el más antiguo
@@ -69,10 +74,11 @@ class ParqueInteractivo {
             // Validar y procesar el input del usuario
             const personasPorHorario = parseInt(document.getElementById("maxPersonas").value);
     
-            if (isNaN(personasPorHorario) || personasPorHorario <= 0) {
-                alert("Por favor, ingrese un número válido de personas.");
+            if (isNaN(personasPorHorario) || personasPorHorario < 0) {
+                alert("Por favor, ingrese un número válido de personas (no negativos).");
                 return;
             }
+            
     
             // Agregar personas al final y ajustar longitud del array
             this.datosSimulacion.push(personasPorHorario);
@@ -102,7 +108,22 @@ class ParqueInteractivo {
         this.mostrarMensajeFinal();
     
         // Calcular ingresos basados en el último valor de personas
-        calcularIngresos(this.datosSimulacion[this.datosSimulacion.length - 1]);
+        // Calcular ingresos basados en el último valor de personas
+const ultimoValor = this.datosSimulacion[this.datosSimulacion.length - 1];
+
+// Si el último valor es 0 (simulación de salida), no calcular ingresos
+if (ultimoValor === 0) {
+    return;
+}
+
+// Si hay personas reales, pero el costo está en 0, también actualizamos visual
+if (ultimoValor > 0 && parseInt(document.getElementById("costoBoleta").value) === 0) {
+    document.getElementById("valorPersona").textContent = "0";
+}
+
+// Solo aquí se calcula ingreso
+calcularIngresos(ultimoValor);
+
     }
     
     
@@ -139,26 +160,29 @@ document.getElementById("costoBoleta").addEventListener("input", function () {
 // Variable global para almacenar ingresos por grupo
 let ingresosPorGrupo = []; 
 
-function calcularIngresos(personasPorHorario) {
-    const costoBoleta = parseInt(document.getElementById("costoBoleta").value) || 0; // Obtener el costo de boleta actual
 
-    // Guardar cada grupo con su propio costo
+function calcularIngresos(personasPorHorario) {
+    if (personasPorHorario <= 0 || parque.simulacionFinalizada) return; // ❌ Ignorar ceros o si ya terminó
+
+    const costoBoleta = parseInt(document.getElementById("costoBoleta").value) || 0;
+
     ingresosPorGrupo.push({ personas: personasPorHorario, costo: costoBoleta });
 
-    // Calcular ingreso total sumando cada grupo con su propio costo
     let ingresoTotal = ingresosPorGrupo.reduce((total, grupo) => {
         return total + (grupo.personas * grupo.costo);
     }, 0);
 
-    // Actualizar la tabla de ingresos dinámicamente
-    totalPersonasAcumuladas += personasPorHorario; // Sumar al total de personas
+    totalPersonasAcumuladas += personasPorHorario;
     document.getElementById("totalPersonas").textContent = totalPersonasAcumuladas;
-    document.getElementById("ingresoTotal").textContent = ingresoTotal.toLocaleString(); // Formato numérico
+    document.getElementById("ingresoTotal").textContent = ingresoTotal.toLocaleString();
 }
+
 
 
 // Función para limpiar la tabla y reiniciar valores
 function limpiarTabla() {
+    parque.simulacionFinalizada = false;
+
     // Limpiar el cuerpo de la tabla
     const tbody = document.querySelector("#tablaSimulacion tbody");
     tbody.innerHTML = ""; // Vaciar las filas de la tabla
@@ -188,10 +212,16 @@ document.getElementById("llenarBtn").addEventListener("click", function () {
 
     // Verificar que el input de maxPersonas es válido
     const personasPorHorario = parseInt(document.getElementById("maxPersonas").value);
-    if (isNaN(personasPorHorario) || personasPorHorario <= 0) {
-        alert("Por favor, ingrese un número válido de personas.");
+    if (personasPorHorario === 0) {
+        document.getElementById("costoBoleta").value = 0;
+        document.getElementById("valorPersona").textContent = "0";
+    }
+    
+    if (isNaN(personasPorHorario) || personasPorHorario < 0) {
+        alert("Por favor, ingrese un número válido de personas (no negativos).");
         return;
     }
+    
 
     // Llenar la tabla de simulación
     parque.generarCabecerasAtracciones();
@@ -205,3 +235,17 @@ document.getElementById("limpiarBtn").addEventListener("click", function () {
 thead.innerHTML = "<th>Horario</th>";
 
 });
+document.getElementById("compararBtn").addEventListener("click", () => {
+    const ingresoTotal = document.getElementById("ingresoTotal").textContent.replace(/\./g, "").replace(/,/g, "");
+    const totalPersonas = document.getElementById("totalPersonas").textContent;
+    const valorPersona = document.getElementById("valorPersona").textContent.replace(/\./g, "").replace(/,/g, "");
+  
+    // Guarda los valores
+    sessionStorage.setItem("ingresoTotal", ingresoTotal);
+    sessionStorage.setItem("totalPersonas", totalPersonas);
+    sessionStorage.setItem("valorPersona", valorPersona);
+  
+    // Ahora sí redirige
+    window.location.href = "comparar.html";
+  });
+  
