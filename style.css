@@ -172,3 +172,40 @@ tbody tr:nth-child(odd) {
     margin-left: 420px; /* Mueve la tabla hacia la izquierda */
     border-collapse: collapse;
 }
+.inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  .inputs-grid div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  
+  .inputs-grid label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5); /* igual que thead */
+    color: white;
+    border-bottom: 2px solid rgb(204, 204, 204);
+  }
+  
+  .inputs-grid input {
+    padding: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.3); /* como filas pares */
+    color: white;
+    border: none;
+    border-bottom: 2px solid rgb(204, 204, 204);
+    border-radius: 5px;
+  }
+  
