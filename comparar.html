@@ -11,30 +11,89 @@
     <h1>Comparación de Ingresos y Costos</h1>
 
     <div class="inputs-grid">
-      <div><label for="arriendo">Arriendo:</label><input type="number" id="arriendo" value="0" /></div>
-      <div><label for="consumibles">Consumibles:</label><input type="number" id="consumibles" value="0" /></div>
-      <div><label for="facturas">Facturas:</label><input type="number" id="facturas" value="0" /></div>
-      <div><label for="mantenimiento">Mantenimiento:</label><input type="number" id="mantenimiento" value="0" /></div>
-      <div><label for="personal">Personal:</label><input type="number" id="personal" value="0" /></div>
-    
-      <div><label for="refrigerios">Refrigerios:</label><input type="number" id="refrigerios" value="0" /></div>
-      <div><label for="impuestos">Impuestos:</label><input type="number" id="impuestos" value="0" /></div>
-      <div><label for="contador">Contador:</label><input type="number" id="contador" value="0" /></div>
-      <div><label for="energia">Energía:</label><input type="number" id="energia" value="0" /></div>
-      <div><label for="gas">Gas:</label><input type="number" id="gas" value="0" /></div>
-    
-      <div><label for="agua">Agua:</label><input type="number" id="agua" value="0" /></div>
-      <div><label for="internet">Internet:</label><input type="number" id="internet" value="0" /></div>
-      <div><label for="seguridad">Seguridad:</label><input type="number" id="seguridad" value="0" /></div>
-      <div><label for="marketing">Marketing:</label><input type="number" id="marketing" value="0" /></div>
-      <div><label for="publicidad">Publicidad:</label><input type="number" id="publicidad" value="0" /></div>
-    
-      <div><label for="seguros">Seguros:</label><input type="number" id="seguros" value="0" /></div>
-      <div><label for="transporte">Transporte:</label><input type="number" id="transporte" value="0" /></div>
-      <div><label for="materiales">Materiales:</label><input type="number" id="materiales" value="0" /></div>
-      <div><label for="equipos">Equipos:</label><input type="number" id="equipos" value="0" /></div>
-      <div><label for="otros">Otros:</label><input type="number" id="otros" value="0" /></div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+      <div>
+        <input type="text" placeholder="Nombre del gasto" class="nombre-gasto" />
+        <input type="number" value="0" class="valor-gasto" />
+      </div>
+
     </div>
+    
     
       
     </div>
@@ -55,66 +114,49 @@
 </div>
 
 
-  <script>
-    document.getElementById("calcularComparacion").addEventListener("click", () => {
-  const arriendo = parseInt(document.getElementById("arriendo").value) || 0;
-  const consumibles = parseInt(document.getElementById("consumibles").value) || 0;
-  const facturas = parseInt(document.getElementById("facturas").value) || 0;
-  const mantenimiento = parseInt(document.getElementById("mantenimiento").value) || 0;
-  const personal = parseInt(document.getElementById("personal").value) || 0;
-  const refrigerios = parseInt(document.getElementById("refrigerios").value) || 0;
-
-  const impuestos = parseInt(document.getElementById("impuestos").value) || 0;
-  const contador = parseInt(document.getElementById("contador").value) || 0;
-  const energia = parseInt(document.getElementById("energia").value) || 0;
-  const gas = parseInt(document.getElementById("gas").value) || 0;
-  const agua = parseInt(document.getElementById("agua").value) || 0;
-  const internet = parseInt(document.getElementById("internet").value) || 0;
-  const seguridad = parseInt(document.getElementById("seguridad").value) || 0;
-  const marketing = parseInt(document.getElementById("marketing").value) || 0;
-  const publicidad = parseInt(document.getElementById("publicidad").value) || 0;
-  const seguros = parseInt(document.getElementById("seguros").value) || 0;
-  const transporte = parseInt(document.getElementById("transporte").value) || 0;
-  const materiales = parseInt(document.getElementById("materiales").value) || 0;
-  const equipos = parseInt(document.getElementById("equipos").value) || 0;
-  const otros = parseInt(document.getElementById("otros").value) || 0;
-
-  const ingresoTotal = parseInt(sessionStorage.getItem("ingresoTotal")) || 0;
-
-  const totalGastos =
-    arriendo + consumibles + facturas + mantenimiento + personal + refrigerios +
-    impuestos + contador + energia + gas + agua + internet + seguridad +
-    marketing + publicidad + seguros + transporte + materiales + equipos + otros;
-
-  const ganancia = ingresoTotal - totalGastos;
-      const resultadoHTML = `
-        <table border="1" cellpadding="5" cellspacing="0">
-          <thead>
-            <tr><th>Concepto</th><th>Valor</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Ingreso Total</td><td>${ingresoTotal.toLocaleString()}</td></tr>
-            <tr><td>Gastos Totales</td><td>${totalGastos.toLocaleString()}</td></tr>
-            <tr>
-              <td><strong>${ganancia >= 0 ? "Valor Total" : "Valor Total"}</strong></td>
-              <td><strong style="color: ${ganancia >= 0 ? "green" : "red"}">${ganancia.toLocaleString()}</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-      
-      document.getElementById("resultadoComparacion").innerHTML = resultadoHTML;
-      
+<script>
+  document.getElementById("calcularComparacion").addEventListener("click", () => {
+    const ingresoTotal = parseInt(sessionStorage.getItem("ingresoTotal")) || 0;
+  
+    const valores = document.querySelectorAll(".valor-gasto");
+  
+    let totalGastos = 0;
+  
+    valores.forEach(input => {
+      totalGastos += parseInt(input.value) || 0;
     });
-    window.addEventListener("DOMContentLoaded", () => {
-  const ingresoTotal = parseInt(sessionStorage.getItem("ingresoTotal")) || 0;
-
-  const ingresoAuto = document.createElement("p");
-  ingresoAuto.innerHTML = `<strong>Ingreso Total Recibido:</strong> ${ingresoTotal.toLocaleString()}`;
-  document.querySelector(".container").insertBefore(ingresoAuto, document.getElementById("resultadoComparacion"));
-});
-
+  
+    const ganancia = ingresoTotal - totalGastos;
+  
+    const resultadoHTML = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr><th>Concepto</th><th>Valor</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Ingreso Total</strong></td><td>${ingresoTotal.toLocaleString()}</td></tr>
+          <tr><td><strong>Gastos Totales</strong></td><td>${totalGastos.toLocaleString()}</td></tr>
+          <tr>
+            <td><strong>${ganancia >= 0 ? "Valor total" : "Valor total"}</strong></td>
+            <td><strong style="color: ${ganancia >= 0 ? "green" : "red"}">${ganancia.toLocaleString()}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+  
+    document.getElementById("resultadoComparacion").innerHTML = resultadoHTML;
+  });
+  
+  window.addEventListener("DOMContentLoaded", () => {
+    const ingresoTotal = parseInt(sessionStorage.getItem("ingresoTotal")) || 0;
+  
+    const ingresoAuto = document.createElement("p");
+    ingresoAuto.innerHTML = `<strong>Ingreso Total Recibido:</strong> ${ingresoTotal.toLocaleString()}`;
+    document.querySelector(".container").insertBefore(ingresoAuto, document.getElementById("resultadoComparacion"));
+  });
   </script>
+  
+  
    
 </body>
 </html>
