@@ -1,5 +1,5 @@
 class ParqueInteractivo {
-    constructor(maxPersonas, maxHorarios, maxAtracciones, limiteRelleno) {
+    constructor(maxPersonas, maxHorarios, maxAtracciones, limiteRelleno, horaInicio = "08:00") {
         this.maxPersonas = maxPersonas;   // Número máximo de personas por grupo
         this.maxHorarios = maxHorarios;  // Número máximo de horarios
         this.maxAtracciones = maxAtracciones; // Número de atracciones
@@ -8,18 +8,27 @@ class ParqueInteractivo {
         this.horarioActual = 0;          // Cambiado a 0 para representar 8:00 AM
         this.datosSimulacion = [];      // Array para almacenar los datos de la simulación
         this.simulacionFinalizada = false; // Para congelar ingresos al empezar los ceros
-
+        this.horaInicio = horaInicio;  // Hora de inicio personalizada
     }
     
     // Función para calcular el rango de horarios en bloques de 10 minutos
     calcularHorario(horarioIndex) {
-        const horaInicio = 8 * 60; // 8:00 AM en minutos
-        const minutos = horaInicio + (horarioIndex * 10);
+        const horaInput = document.getElementById("horainicial").value || "08:00";
+        const [horaBase, minutoBase] = horaInput.split(":").map(Number);
+        const minutosInicio = (horaBase * 60) + minutoBase;
+    
+        const minutos = minutosInicio + (horarioIndex * 10);
         const hora = Math.floor(minutos / 60);
         const min = minutos % 60;
-        const horaFin = min + 10 >= 60 ? `${hora + 1}:00` : `${hora}:${(min + 10).toString().padStart(2, '0')}`;
-        return `${hora}:${min.toString().padStart(2, '0')} - ${horaFin}`;
+    
+        const minutosFin = minutos + 10;
+        const horaFin = Math.floor(minutosFin / 60);
+        const minFin = minutosFin % 60;
+    
+        return `${hora.toString().padStart(2, "0")}:${min.toString().padStart(2, "0")} - ${horaFin.toString().padStart(2, "0")}:${minFin.toString().padStart(2, "0")}`;
     }
+    
+   
 
     // Función para llenar una celda por clic (simulación en tiempo real)
     llenarCelda() {
@@ -47,7 +56,7 @@ class ParqueInteractivo {
         // Verificar si el horario actual supera los horarios normales
         if (this.horarioActual > this.maxHorarios) {
             // Marcar que empezó la simulación de ceros
-this.simulacionFinalizada = true;
+            this.simulacionFinalizada = true;
 
             // Añadir cero al inicio para simular el desplazamiento
             this.datosSimulacion.unshift(0);
@@ -78,7 +87,6 @@ this.simulacionFinalizada = true;
                 alert("Por favor, ingrese un número válido de personas (no negativos).");
                 return;
             }
-            
     
             // Agregar personas al final y ajustar longitud del array
             this.datosSimulacion.push(personasPorHorario);
@@ -109,23 +117,21 @@ this.simulacionFinalizada = true;
     
         // Calcular ingresos basados en el último valor de personas
         // Calcular ingresos basados en el último valor de personas
-const ultimoValor = this.datosSimulacion[this.datosSimulacion.length - 1];
+        const ultimoValor = this.datosSimulacion[this.datosSimulacion.length - 1];
 
-// Si el último valor es 0 (simulación de salida), no calcular ingresos
-if (ultimoValor === 0) {
-    return;
-}
+        // Si el último valor es 0 (simulación de salida), no calcular ingresos
+        if (ultimoValor === 0) {
+            return;
+        }
 
-// Si hay personas reales, pero el costo está en 0, también actualizamos visual
-if (ultimoValor > 0 && parseInt(document.getElementById("costoBoleta").value) === 0) {
-    document.getElementById("valorPersona").textContent = "0";
-}
+        // Si hay personas reales, pero el costo está en 0, también actualizamos visual
+        if (ultimoValor > 0 && parseInt(document.getElementById("costoBoleta").value) === 0) {
+            document.getElementById("valorPersona").textContent = "0";
+        }
 
-// Solo aquí se calcula ingreso
-calcularIngresos(ultimoValor);
-
+        // Solo aquí se calcula ingreso
+        calcularIngresos(ultimoValor);
     }
-    
     
     // Función para generar dinámicamente las cabeceras de la tabla
     generarCabecerasAtracciones() {
@@ -138,6 +144,8 @@ calcularIngresos(ultimoValor);
             thead.appendChild(th);
         }
     }
+
+
 
     // Mostrar mensaje final con el número de clics realizados
     mostrarMensajeFinal() {
