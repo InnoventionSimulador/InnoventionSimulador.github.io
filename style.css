@@ -172,40 +172,94 @@ tbody tr:nth-child(odd) {
     margin-left: 420px; /* Mueve la tabla hacia la izquierda */
     border-collapse: collapse;
 }
-.inputs-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    justify-content: center;
+/* Flexbox para la disposición */
+.flex-seccion {
+    display: flex;
+    justify-content: flex-start; /* Para que los bloques se alineen horizontalmente */
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    position: relative; /* Necesario para que los elementos absolutos se posicionen bien */
   }
   
+  /* Bloque de Ingresos */
+  .bloque.ingresos {
+    width: 48%; /* Ajusta el tamaño del bloque de ingresos */
+  }
+  
+  /* Bloque de Egresos */
+  .bloque.egresos {
+    width: 48%; /* Ajusta el tamaño del bloque de egresos */
+    position: absolute; /* Lo coloca en una posición específica dentro del contenedor */
+    top: 0; /* Se coloca en la parte superior */
+    right: 0; /* Se coloca en la parte derecha */
+    z-index: 10; /* Asegura que esté encima de otros elementos */
+  }
+  
+  /* Grid de Inputs */
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 5px;
+    justify-content: center;
+  }
+  .numero-gasto {
+    margin-right: 10px;
+    min-width: 20px;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .nombre-gasto, .valor-gasto {
+    margin-right: 10px;
+  }
+ 
   .inputs-grid div {
     display: flex;
-    flex-direction: column;
-    align-items: start;
+    flex-direction: row;
+    align-items: center;
   }
   
   .inputs-grid label {
-    margin-bottom: 5px;
+    margin-right: 10px;
     font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.5); /* igual que thead */
+    min-width: 130px;
+    background: none;
+    padding: 0;
+    border: none;
     color: white;
-    border-bottom: 2px solid rgb(204, 204, 204);
   }
   
   .inputs-grid input {
     padding: 6px;
     width: 100%;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.3); /* como filas pares */
+    background-color: rgba(0, 0, 0, 0.3);
     color: white;
     border: none;
     border-bottom: 2px solid rgb(204, 204, 204);
     border-radius: 5px;
   }
+ 
+ /* Marco para la columna de Ingresos */
+.bloque.ingresos {
+    width: 45%; /* Reduce el tamaño de la columna para que no se junten tanto */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px; /* Reduce el padding interno */
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil */
+}
+
+/* Marco para la columna de Egresos */
+.bloque.egresos {
+    width: 45%; /* Reduce el tamaño de la columna para que no se junten tanto */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px; /* Reduce el padding interno */
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil */
+}
+
   
